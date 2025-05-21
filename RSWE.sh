@@ -115,10 +115,10 @@ run_mp4_wallpaper () {
 		done
 	else
 		if mkdir $Mp4_Frames_folder; then
-			generate_mp4_frames $Current_filename $Mp4_Frames_folder
-		else
 			# This thread will exit after finishing, so no need to keep its PID or anything
-			echo "VIDEO_FRAMES_FOLDER not found" $Current_filename $Mp4_Frames_folder &
+			generate_mp4_frames $Current_filename $Mp4_Frames_folder &
+		else
+			echo "VIDEO_FRAMES_FOLDER not found"
 		fi
 	fi
 }
