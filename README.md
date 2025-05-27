@@ -65,6 +65,9 @@ The process playing the `.gif` or `.mp4` frames on loop on step 3, is a subproce
 - Memory usage was always less than 30MB on my testing. Running for a single workspace. But I think it depends on the file size.
 
 ## License
+
+This project is licensed under the GPL v3 License. See the [LICENSE](LICENSE) file for details.
+
 ## Disclaimer
 
 In addition to the warranty disclaimers in the GPL license, the software is provided "as is" and without any further warranties or guarantees. The author shall not be held liable for any damages resulting from the use of this software.
