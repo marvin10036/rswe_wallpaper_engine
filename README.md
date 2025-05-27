@@ -30,7 +30,7 @@ You can do it by running something like:
 xfconf-query -c xfce4-desktop -l | grep last-image
 ```
 
-This is gonna return the path to all your workspaces. Grab the one that you're gonna use. Notice that the path doesn't have trailing forward slashes (/). You should keep it that way, as putting a forward slash on the end causes abnormal behaviour on the program. This will be placed as the argument for the `-m` flag.
+This is gonna return all the paths to all your workspaces. Grab the one that you're gonna use. Notice that the path doesn't have trailing forward slashes (/). You should keep it that way, as putting a forward slash on the end causes abnormal behaviour on the program. This will be placed as the argument for the `-m` flag.
 
 ### Running the script
 
