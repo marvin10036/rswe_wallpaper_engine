@@ -1,13 +1,54 @@
 #!/bin/bash
 
-WALLPAPER_FOLDER="$HOME/Imagens/Wallpapers"
-VIDEO_FRAMES_FOLDER="$HOME/Imagens/Wallpapers/Video_Wallpapers"
-MONITOR_WORKSPACE_PATH="/backdrop/screen0/monitorDP-1/workspace0/last-image"
-TIME=10
+show_help_text() {
+	echo "Usage: $0 -w <wallpaper_folder> -v <video_frames_folder> -t <time_in_seconds> -m <workspace_last_image_path> [-h for help]"
+	echo ""
+	echo "-w, The folder where your wallpaper's images, GIFs, or MP4s are located."
+	echo "-v, The folder where the frames of the GIF or MP4 files will be stored by the script."
+	echo "-t, Time in seconds to change between wallpapers."
+	echo "-m, The path of the workspace last image. You can get it by running: 'xfconf-query -c xfce4-desktop -l | grep last-image'."
+	echo "-h, Shows this screen."
+}
+
+# Global variables
+WALLPAPER_FOLDER=""
+VIDEO_FRAMES_FOLDER=""
+MONITOR_WORKSPACE_PATH=""
+TIME=""
 
 # Child Process PID (the run_GIF_wallpaper and the run_mp4_wallpaper functions will be
 # child processes when called)
 CHILD_PID=""
+
+# Input parsing
+while getopts ":w:v:m:t:h" opt; do
+	case $opt in
+		w) WALLPAPER_FOLDER=$OPTARG ;;
+		v) VIDEO_FRAMES_FOLDER=$OPTARG ;;
+		m) MONITOR_WORKSPACE_PATH=$OPTARG ;;
+		t) TIME=$OPTARG ;;
+		h)
+			show_help_text
+			exit 0
+			;;
+		:)
+			# Will fall here when an option's argument is empty
+			echo "Option -${OPTARG} requires an argument."
+			;;
+		?)
+			# Will fall here under an invalid flag
+			echo "Invalid option: -${OPTARG}"
+			echo "Usage: $0 -w <wallpaper_folder> -v <video_frames_folder> -t <time_in_seconds> -m <workspace_last_image_path> [-h for help]"
+			;;
+	esac
+done
+
+# Checking if every variable has been set
+if [[ -z $WALLPAPER_FOLDER || -z $VIDEO_FRAMES_FOLDER || -z $MONITOR_WORKSPACE_PATH || -z $TIME ]]; then
+	echo "Invalid input."
+	echo "Usage: $0 -w <wallpaper_folder> -v <video_frames_folder> -t <time_in_seconds> -m <workspace_last_image_path> [-h for help]"
+	exit 1
+fi
 
 kill_child_process () {
 	Child_PID=$1
